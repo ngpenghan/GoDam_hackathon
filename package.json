@@ -11,6 +11,7 @@
   "dependencies": {
     "currently": "^0.0.8",
     "lucide-react": "^0.468.0",
+    "mongodb": "^7.0.0",
     "react": "^18.3.1",
     "react-accordion": "^0.3.0",
     "react-aspect-ratio": "^1.1.2",

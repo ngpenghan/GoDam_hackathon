@@ -1,11 +1,7 @@
-import { AppInterface } from '../components/app/AppInterface'
+import Navigation from './components/Navigation'
 
 function App() {
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-      <AppInterface />
-    </div>
-  )
+  return <Navigation />
 }
 
 export default App
