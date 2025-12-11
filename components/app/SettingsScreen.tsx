@@ -1,94 +1,172 @@
-import { Lock, Bell, Shield, Smartphone, HelpCircle, LogOut, ChevronRight, Fingerprint } from 'lucide-react';
+import {
+  Lock,
+  Bell,
+  Shield,
+  Smartphone,
+  HelpCircle,
+  LogOut,
+  ChevronRight,
+  Fingerprint,
+  Globe,
+} from "lucide-react";
+import { useLanguage } from "../../src/contexts/LanguageContext";
 
-export function SettingsScreen({ showModal }: { showModal: (type: any, config: any) => void }) {
+export function SettingsScreen({
+  showModal,
+}: {
+  showModal: (type: any, config?: any) => void;
+}) {
+  const { t, setLanguage, language } = useLanguage();
+
   const handleSettingClick = (setting: string) => {
     switch (setting) {
-      case 'pin':
-        showModal('pin', {
-          title: 'Change PIN',
-          description: 'Enter your current PIN to continue',
+      case "language":
+        showModal("info", {
+          title: t("selectLanguage"),
+          message: (
+            <div className="flex flex-col gap-2 mt-2">
+              <button
+                onClick={() => {
+                  setLanguage("en");
+                  showModal(null);
+                }}
+                className={`p-3 rounded-lg border ${
+                  language === "en"
+                    ? "bg-blue-50 border-blue-200 text-blue-700"
+                    : "border-gray-200"
+                }`}
+              >
+                English
+              </button>
+              <button
+                onClick={() => {
+                  setLanguage("ms");
+                  showModal(null);
+                }}
+                className={`p-3 rounded-lg border ${
+                  language === "ms"
+                    ? "bg-blue-50 border-blue-200 text-blue-700"
+                    : "border-gray-200"
+                }`}
+              >
+                Bahasa Melayu
+              </button>
+              <button
+                onClick={() => {
+                  setLanguage("zh");
+                  showModal(null);
+                }}
+                className={`p-3 rounded-lg border ${
+                  language === "zh"
+                    ? "bg-blue-50 border-blue-200 text-blue-700"
+                    : "border-gray-200"
+                }`}
+              >
+                中文
+              </button>
+            </div>
+          ),
+          onConfirm: () => {},
+        });
+        break;
+      case "pin":
+        showModal("pin", {
+          title: "Change PIN",
+          description: "Enter your current PIN to continue",
           onSuccess: () => {
-            showModal('success', {
-              title: 'PIN Changed',
-              message: 'Your MyID+ PIN has been successfully updated. Use your new PIN for all future transactions.',
-              onConfirm: () => {}
+            showModal("success", {
+              title: "PIN Changed",
+              message:
+                "Your MyID+ PIN has been successfully updated. Use your new PIN for all future transactions.",
+              onConfirm: () => {},
             });
-          }
+          },
         });
         break;
-      case 'biometric':
-        showModal('info', {
-          title: 'Biometric Settings',
-          message: 'Enable fingerprint or Face ID for high-security actions. This provides two-factor authentication for sensitive operations like digital signatures and updating card information.',
-          onConfirm: () => {}
+      case "biometric":
+        showModal("info", {
+          title: "Biometric Settings",
+          message:
+            "Enable fingerprint or Face ID for high-security actions. This provides two-factor authentication for sensitive operations like digital signatures and updating card information.",
+          onConfirm: () => {},
         });
         break;
-      case 'privacy':
-        showModal('info', {
-          title: 'Privacy Controls',
-          message: 'Manage which services can access your data. Set default permission levels and review all access requests. Your privacy settings sync across all devices.',
-          onConfirm: () => {}
+      case "privacy":
+        showModal("info", {
+          title: "Privacy Controls",
+          message:
+            "Manage which services can access your data. Set default permission levels and review all access requests. Your privacy settings sync across all devices.",
+          onConfirm: () => {},
         });
         break;
-      case 'notifications':
-        showModal('info', {
-          title: 'Push Notifications',
-          message: 'Get instant alerts when your MyID+ is used, when subsidies are added, or when critical health alerts are updated. Customize notification preferences for different event types.',
-          onConfirm: () => {}
+      case "notifications":
+        showModal("info", {
+          title: "Push Notifications",
+          message:
+            "Get instant alerts when your MyID+ is used, when subsidies are added, or when critical health alerts are updated. Customize notification preferences for different event types.",
+          onConfirm: () => {},
         });
         break;
-      case 'nfc':
-        showModal('info', {
-          title: 'NFC Settings',
-          message: 'Your NFC is currently active and ready. You can customize tap-to-verify preferences, set offline mode options, and manage which data is accessible in different scenarios.',
-          onConfirm: () => {}
+      case "nfc":
+        showModal("info", {
+          title: "NFC Settings",
+          message:
+            "Your NFC is currently active and ready. You can customize tap-to-verify preferences, set offline mode options, and manage which data is accessible in different scenarios.",
+          onConfirm: () => {},
         });
         break;
-      case 'help':
-        showModal('info', {
-          title: 'Help & Support',
-          message: 'Access FAQs, tutorials, and customer support. Visit your nearest JPN office for in-person assistance or call our 24/7 helpline at 1-800-MYID-PLUS.',
-          onConfirm: () => {}
+      case "help":
+        showModal("info", {
+          title: "Help & Support",
+          message:
+            "Access FAQs, tutorials, and customer support. Visit your nearest JPN office for in-person assistance or call our 24/7 helpline at 1-800-MYID-PLUS.",
+          onConfirm: () => {},
         });
         break;
-      case 'lock':
-        showModal('confirm', {
-          title: 'Lock MyID+',
-          message: 'Are you sure you want to lock your MyID+? You will need to re-authenticate to access your digital identity.',
+      case "lock":
+        showModal("confirm", {
+          title: "Lock MyID+",
+          message:
+            "Are you sure you want to lock your MyID+? You will need to re-authenticate to access your digital identity.",
           onConfirm: () => {
-            showModal('success', {
-              title: 'MyID+ Locked',
-              message: 'Your MyID+ has been locked. Physical card functions remain active for emergency use.',
-              onConfirm: () => {}
+            showModal("success", {
+              title: "MyID+ Locked",
+              message:
+                "Your MyID+ has been locked. Physical card functions remain active for emergency use.",
+              onConfirm: () => {},
             });
-          }
+          },
         });
         break;
-      case 'report':
-        showModal('emergency', {
-          title: 'Report Lost Card',
-          message: 'Your card will be immediately disabled to prevent unauthorized access. Visit JPN with proper identification to request a replacement. Emergency health data will remain accessible to paramedics.',
+      case "report":
+        showModal("emergency", {
+          title: "Report Lost Card",
+          message:
+            "Your card will be immediately disabled to prevent unauthorized access. Visit JPN with proper identification to request a replacement. Emergency health data will remain accessible to paramedics.",
           onConfirm: () => {
-            showModal('success', {
-              title: 'Card Reported',
-              message: 'Your MyID+ has been disabled. A replacement request has been submitted. You will receive an SMS with further instructions.',
-              onConfirm: () => {}
+            showModal("success", {
+              title: "Card Reported",
+              message:
+                "Your MyID+ has been disabled. A replacement request has been submitted. You will receive an SMS with further instructions.",
+              onConfirm: () => {},
             });
-          }
+          },
         });
         break;
-      case 'privacy-policy':
-        showModal('info', {
-          title: 'Privacy Policy',
-          message: 'MyID+ is designed with privacy-first principles. All data is encrypted end-to-end. We never share your personal information without explicit consent. You maintain full ownership of your data.',
-          onConfirm: () => {}
+      case "privacy-policy":
+        showModal("info", {
+          title: "Privacy Policy",
+          message:
+            "MyID+ is designed with privacy-first principles. All data is encrypted end-to-end. We never share your personal information without explicit consent. You maintain full ownership of your data.",
+          onConfirm: () => {},
         });
         break;
-      case 'terms':
-        showModal('info', {
-          title: 'Terms of Service',
-          message: 'By using MyID+, you agree to Malaysia\'s Digital Identity Act 2025. Your rights include data portability, right to deletion, and transparent access logging. Review full terms at myidplus.gov.my',
-          onConfirm: () => {}
+      case "terms":
+        showModal("info", {
+          title: "Terms of Service",
+          message:
+            "By using MyID+, you agree to Malaysia's Digital Identity Act 2025. Your rights include data portability, right to deletion, and transparent access logging. Review full terms at myidplus.gov.my",
+          onConfirm: () => {},
         });
         break;
     }
@@ -96,26 +174,72 @@ export function SettingsScreen({ showModal }: { showModal: (type: any, config: a
 
   const settingsGroups = [
     {
-      title: 'Security',
+      title: t("settings"),
       items: [
-        { icon: Lock, label: 'Change PIN', action: 'Manage your 6-digit PIN', key: 'pin' },
-        { icon: Fingerprint, label: 'Biometric Settings', action: 'Fingerprint & Face ID', key: 'biometric' },
-        { icon: Shield, label: 'Privacy Controls', action: 'Manage data permissions', key: 'privacy' },
-      ]
+        {
+          icon: Globe,
+          label: t("language"),
+          action:
+            language === "en"
+              ? "English"
+              : language === "ms"
+              ? "Bahasa Melayu"
+              : "中文",
+          key: "language",
+        },
+      ],
     },
     {
-      title: 'Notifications',
+      title: "Security",
       items: [
-        { icon: Bell, label: 'Push Notifications', action: 'Access alerts & updates', key: 'notifications' },
-        { icon: Smartphone, label: 'NFC Settings', action: 'Tap-to-verify preferences', key: 'nfc' },
-      ]
+        {
+          icon: Lock,
+          label: t("changePin"),
+          action: "Manage your 6-digit PIN",
+          key: "pin",
+        },
+        {
+          icon: Fingerprint,
+          label: t("biometricSettings"),
+          action: "Fingerprint & Face ID",
+          key: "biometric",
+        },
+        {
+          icon: Shield,
+          label: t("privacyControls"),
+          action: "Manage data permissions",
+          key: "privacy",
+        },
+      ],
     },
     {
-      title: 'Support',
+      title: "Notifications",
       items: [
-        { icon: HelpCircle, label: 'Help & FAQs', action: 'Get support', key: 'help' },
-      ]
-    }
+        {
+          icon: Bell,
+          label: t("pushNotifications"),
+          action: "Access alerts & updates",
+          key: "notifications",
+        },
+        {
+          icon: Smartphone,
+          label: t("nfcSettings"),
+          action: "Tap-to-verify preferences",
+          key: "nfc",
+        },
+      ],
+    },
+    {
+      title: "Support",
+      items: [
+        {
+          icon: HelpCircle,
+          label: t("helpSupport"),
+          action: "Get support",
+          key: "help",
+        },
+      ],
+    },
   ];
 
   return (
@@ -191,16 +315,18 @@ export function SettingsScreen({ showModal }: { showModal: (type: any, config: a
       {/* App Info */}
       <div className="bg-gray-50 rounded-xl p-4 text-center space-y-2">
         <p className="text-sm text-gray-600">MyID+ Version 1.0.0</p>
-        <p className="text-xs text-gray-500">Malaysia Digital Identity System</p>
+        <p className="text-xs text-gray-500">
+          Malaysia Digital Identity System
+        </p>
         <div className="flex justify-center gap-4 mt-3">
-          <button 
-            onClick={() => handleSettingClick('privacy-policy')}
+          <button
+            onClick={() => handleSettingClick("privacy-policy")}
             className="text-xs text-[#38b6ff] hover:underline"
           >
             Privacy Policy
           </button>
-          <button 
-            onClick={() => handleSettingClick('terms')}
+          <button
+            onClick={() => handleSettingClick("terms")}
             className="text-xs text-[#38b6ff] hover:underline"
           >
             Terms of Service
@@ -209,8 +335,8 @@ export function SettingsScreen({ showModal }: { showModal: (type: any, config: a
       </div>
 
       {/* Logout */}
-      <button 
-        onClick={() => handleSettingClick('lock')}
+      <button
+        onClick={() => handleSettingClick("lock")}
         className="w-full bg-red-50 border border-red-200 text-red-600 py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-red-100 active:bg-red-200 transition-colors"
       >
         <LogOut className="w-5 h-5" />
@@ -222,10 +348,14 @@ export function SettingsScreen({ showModal }: { showModal: (type: any, config: a
         <div className="flex items-start gap-3">
           <div className="text-xl">⚠️</div>
           <div>
-            <p className="text-sm font-medium text-orange-900 mb-1">Lost Your Card?</p>
-            <p className="text-xs text-orange-700 mb-3">Report immediately to prevent unauthorized access.</p>
-            <button 
-              onClick={() => handleSettingClick('report')}
+            <p className="text-sm font-medium text-orange-900 mb-1">
+              Lost Your Card?
+            </p>
+            <p className="text-xs text-orange-700 mb-3">
+              Report immediately to prevent unauthorized access.
+            </p>
+            <button
+              onClick={() => handleSettingClick("report")}
               className="text-sm text-orange-600 font-medium hover:underline"
             >
               Report Lost Card →
@@ -241,8 +371,18 @@ export default SettingsScreen;
 
 function CheckCircle({ className }: { className?: string }) {
   return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    <svg
+      className={className}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
     </svg>
   );
 }

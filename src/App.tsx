@@ -1,7 +1,12 @@
-import Navigation from './components/Navigation'
+import Navigation from "./components/Navigation";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 function App() {
-  return <Navigation />
+  return (
+    <LanguageProvider>
+      <Navigation />
+    </LanguageProvider>
+  );
 }
 
-export default App
+export default App;

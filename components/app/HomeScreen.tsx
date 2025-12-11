@@ -1,4 +1,5 @@
-import { User, MapPin, Calendar, Smartphone } from 'lucide-react';
+import { User, MapPin, Calendar, Smartphone } from "lucide-react";
+import { useLanguage } from "../../src/contexts/LanguageContext";
 
 interface HomeScreenProps {
   onTap: () => void;
@@ -6,30 +7,33 @@ interface HomeScreenProps {
 }
 
 export function HomeScreen({ onTap, showModal }: HomeScreenProps) {
+  const { t } = useLanguage();
+
   const handleQuickAction = (action: string) => {
-    if (action === 'fuel') {
-      showModal('info', {
-        title: 'Fuel Subsidy',
-        message: 'Tap your MyID+ at any PETRONAS or Shell station to redeem your fuel subsidy instantly. No PIN required for eligibility check.',
-        onConfirm: () => {}
+    if (action === "fuel") {
+      showModal("info", {
+        title: t("fuelSubsidy"),
+        message: t("fuelSubsidyDesc"),
+        onConfirm: () => {},
       });
-    } else if (action === 'banking') {
-      showModal('pin', {
-        title: 'Banking Services',
-        description: 'Enter PIN to access banking features',
+    } else if (action === "banking") {
+      showModal("pin", {
+        title: t("bankingServices"),
+        description: t("bankingServicesDesc"),
         onSuccess: () => {
-          showModal('success', {
-            title: 'Access Granted',
-            message: 'You can now use MyID+ for instant bank account verification and digital signatures.',
-            onConfirm: () => {}
+          showModal("success", {
+            title: "Access Granted",
+            message:
+              "You can now use MyID+ for instant bank account verification and digital signatures.",
+            onConfirm: () => {},
           });
-        }
+        },
       });
-    } else if (action === 'emergency') {
-      showModal('emergency', {
-        title: 'Emergency Mode',
-        message: 'In emergency mode, paramedics can access your critical health data without PIN. Your personal identity remains protected.',
-        onConfirm: () => {}
+    } else if (action === "emergency") {
+      showModal("emergency", {
+        title: t("emergencyMode"),
+        message: t("emergencyModeDesc"),
+        onConfirm: () => {},
       });
     }
   };
@@ -41,8 +45,8 @@ export function HomeScreen({ onTap, showModal }: HomeScreenProps) {
         <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#ff0094] to-[#38b6ff] rounded-full mb-3">
           <span className="text-3xl">🪪</span>
         </div>
-        <h1 className="text-2xl mb-1">MyID+</h1>
-        <p className="text-gray-500 text-sm">Malaysia Digital Identity</p>
+        <h1 className="text-2xl mb-1">{t("appTitle")}</h1>
+        <p className="text-gray-500 text-sm">{t("appSubtitle")}</p>
       </div>
 
       {/* Digital ID Card */}
@@ -94,33 +98,35 @@ export function HomeScreen({ onTap, showModal }: HomeScreenProps) {
         className="w-full bg-gradient-to-r from-[#ff0094] to-[#38b6ff] text-white py-4 rounded-xl flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-transform"
       >
         <Smartphone className="w-6 h-6 animate-pulse" />
-        <span className="text-lg">Tap to Verify</span>
+        <span className="text-lg">{t("tapToVerify")}</span>
       </button>
 
       {/* Quick Actions */}
       <div className="space-y-2">
-        <p className="text-sm text-gray-500">Quick Actions</p>
+        <p className="text-sm text-gray-500">{t("quickActions")}</p>
         <div className="grid grid-cols-3 gap-3">
-          <button 
-            onClick={() => handleQuickAction('fuel')}
+          <button
+            onClick={() => handleQuickAction("fuel")}
             className="bg-gray-50 rounded-xl p-3 flex flex-col items-center gap-2 hover:bg-gray-100 transition-colors active:scale-95"
           >
             <div className="text-2xl">⛽</div>
-            <span className="text-xs text-gray-700">Fuel Subsidy</span>
+            <span className="text-xs text-gray-700">{t("fuelSubsidy")}</span>
           </button>
-          <button 
-            onClick={() => handleQuickAction('banking')}
+          <button
+            onClick={() => handleQuickAction("banking")}
             className="bg-gray-50 rounded-xl p-3 flex flex-col items-center gap-2 hover:bg-gray-100 transition-colors active:scale-95"
           >
             <div className="text-2xl">🏦</div>
-            <span className="text-xs text-gray-700">Banking</span>
+            <span className="text-xs text-gray-700">
+              {t("bankingServices")}
+            </span>
           </button>
-          <button 
-            onClick={() => handleQuickAction('emergency')}
+          <button
+            onClick={() => handleQuickAction("emergency")}
             className="bg-gray-50 rounded-xl p-3 flex flex-col items-center gap-2 hover:bg-gray-100 transition-colors active:scale-95"
           >
             <div className="text-2xl">🚨</div>
-            <span className="text-xs text-gray-700">Emergency</span>
+            <span className="text-xs text-gray-700">{t("emergencyMode")}</span>
           </button>
         </div>
       </div>

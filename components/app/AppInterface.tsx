@@ -8,6 +8,7 @@ import { TapScreen } from "./TapScreen";
 import { PINModal } from "./modals/PINModal";
 import { ActionModal } from "./modals/ActionModal";
 import { Home, CreditCard, Heart, Eye, Settings } from "lucide-react";
+import { useLanguage } from "../../src/contexts/LanguageContext";
 
 type Screen =
   | "home"
@@ -19,6 +20,7 @@ type Screen =
 type ModalType = "pin" | "emergency" | "success" | "confirm" | "info" | null;
 
 export function AppInterface() {
+  const { t } = useLanguage();
   const [currentScreen, setCurrentScreen] = useState<Screen>("home");
   const [showTap, setShowTap] = useState(false);
   const [modalType, setModalType] = useState<ModalType>(null);
@@ -110,7 +112,7 @@ export function AppInterface() {
               }`}
             >
               <Home className="w-6 h-6" />
-              <span className="text-xs">Home</span>
+              <span className="text-xs">{t("home")}</span>
             </button>
             <button
               onClick={() => setCurrentScreen("subsidy")}
@@ -119,7 +121,7 @@ export function AppInterface() {
               }`}
             >
               <CreditCard className="w-6 h-6" />
-              <span className="text-xs">Subsidy</span>
+              <span className="text-xs">{t("subsidy")}</span>
             </button>
             <button
               onClick={() => setCurrentScreen("health")}
@@ -128,7 +130,7 @@ export function AppInterface() {
               }`}
             >
               <Heart className="w-6 h-6" />
-              <span className="text-xs">Health</span>
+              <span className="text-xs">{t("health")}</span>
             </button>
             <button
               onClick={() => setCurrentScreen("transparency")}
@@ -139,7 +141,7 @@ export function AppInterface() {
               }`}
             >
               <Eye className="w-6 h-6" />
-              <span className="text-xs">Activity</span>
+              <span className="text-xs">{t("activity")}</span>
             </button>
             <button
               onClick={() => setCurrentScreen("settings")}
@@ -150,7 +152,7 @@ export function AppInterface() {
               }`}
             >
               <Settings className="w-6 h-6" />
-              <span className="text-xs">Settings</span>
+              <span className="text-xs">{t("settings")}</span>
             </button>
           </div>
         </div>
